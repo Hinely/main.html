@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqua Hub | Key System</title>
+    <style>
+        /* Styles remain the same */
+        body {
+            background-color: #1e1e2f;
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Tabs Style */
+        .tabs {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            background-color: #2e2e40;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: #3a3a51;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+            margin: 0 10px;
+            position: relative;
+        }
+
+        .tab:hover {
+            background: #5eb2e6;
+        }
+
+        .tab.active {
+            background: #5eb2e6;
+            color: #fff;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 80%;
+            height: 2px;
+            background: #fff;
+            transform: translateX(-50%);
+            animation: underline 0.3s ease;
+        }
+
+        @keyframes underline {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80%;
+            }
+        }
+
+        /* Content Style */
+        .container {
+            max-width: 500px;
+            width: 90%;
+            padding: 30px;
+            background: linear-gradient(145deg, #2e2e40, #262636);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 1px 5px rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(73, 75, 77);
+        }
+
+        .key {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(145deg, #5eb2e6, #98d1f5);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(73, 75, 77);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: #bbb;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #4aacf7;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .tab-content {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: none;
+        }
+
+        .tab-content.active {
+            opacity: 1;
+            transform: scale(1);
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="home">Home</div>
+        <div class="tab" data-tab="about">About</div>
+    </div>
+
+    <div class="container">
+
+        <div class="tab-content active" id="home">
+            <h1>Aqua Hub | Key System</h1>
+            <div class="key" id="key-display">Loading....</div>
+        </div>
+
+        <div class="tab-content" id="about">
+            <p class="about-text"> 
+                Aqua Hub is a hub where you can find the most coolest, overpowered, and craziest exploit scripts to exist! Make sure to tell your friends about it!
+            </p>
+        </div>
+
+        <footer>
+            Created by <a href="#">ExploitFin</a>
+        </footer>
+    </div>
+
+ <script>
+const referrer = document.referrer.toLowerCase().trim();
+console.log("Referrer check:", referrer);
+if (!referrer.includes("") && !referrer.includes("")) {
+    console.log("Redirecting to bypass page...");
+    window.location.href = "https://aquablox.netlify.app/bypass"; 
+}
+
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-tab');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            contents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === target) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+
+
+    fetch('https://key-fetcher-default-rtdb.asia-southeast1.firebasedatabase.app/keys.json')
+        .then(response => response.json())
+        .then(data => {
+   
+            const key = data.currentKey;
+            document.getElementById('key-display').innerText = key || 'No key available, dm @exploitfin';
+        })
+        .catch(error => {
+            console.error('Error fetching key:', error);
+            document.getElementById('key-display').innerText = 'Failed to load key';
+        });
+</script>
+</body>
+</html>

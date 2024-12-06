@@ -159,6 +159,25 @@
         window.location.href = "https://simplescripterkey.netlify.app/bypass"; 
     }
 
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-tab');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            contents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === target) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+
     const key = "9SIMP3$L8#E"; 
     document.getElementById('key-display').innerText = key || 'No key available, dm @2ft4';
 </script>
